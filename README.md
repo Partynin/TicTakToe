@@ -1,8 +1,12 @@
 Thank you for choosing us!
+
 # Ultimate Tic-Tac-Toe
+
 > As you may have discovered yourself, tic-tac-toe is terminally dull.
 > But the mathematicians play a more sophisticated version.
+
 ![alt-text](https://mathwithbaddrawings.files.wordpress.com/2013/06/18-mid-game.jpg "our game")
+
 #3 Ruls:
 + Each turn, you mark one of the small squares.
 + When you get three in a row on a small board, you’ve won that board.
