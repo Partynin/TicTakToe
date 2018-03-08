@@ -1,6 +1,5 @@
 Thank you for choosing us!
-
-# Ultimate Tic-Tac-Toe
+<h1 align="center">Ultimate Tic-Tac-Toe</h1>
 
 > As you may have discovered yourself, tic-tac-toe is terminally dull.
 > But the mathematicians play a more sophisticated version.
