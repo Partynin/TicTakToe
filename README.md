@@ -7,7 +7,7 @@ Thank you for choosing us!
 
 ![alt-text](https://mathwithbaddrawings.files.wordpress.com/2013/06/18-mid-game.jpg "our game")
 
-#3 Ruls:
+### Ruls:
 + Each turn, you mark one of the small squares.
 + When you get three in a row on a small board, you’ve won that board.
 + To win the game, you need to win three small boards in a row.
