@@ -1,3 +1,0 @@
-class FieldView extends GridPane {
-
-}
