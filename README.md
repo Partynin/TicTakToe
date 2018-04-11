@@ -12,4 +12,4 @@ Thank you for choosing us!
 + To win the game, you need to win three small boards in a row.
 + You don’t get to pick which of the nine boards to play on. That’s determined by your opponent’s previous move. Whichever square he picks, that’s the board you must play in next.
 
-[a description of the full rules of the game here](https://mathwithbaddrawings.com/2013/06/16/ultimate-tic-tac-toe/)
+[Description of the full rules of the game here](https://mathwithbaddrawings.com/2013/06/16/ultimate-tic-tac-toe/)
