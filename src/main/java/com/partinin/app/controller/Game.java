@@ -20,13 +20,13 @@ public class Game extends Application {
         pane.setCenter(view);
 
         // Create a scene and place the pane in the stage
-         Scene scene = new Scene(pane, PANE_WIDTH, PANE_HEIGHT);
-         primaryStage.setTitle("Tic-Tak-Toe"); // Set the stage title
-         primaryStage.setScene(scene); // Place the scene in the stage
-         primaryStage.show(); // Display the stage
+        Scene scene = new Scene(pane, PANE_WIDTH, PANE_HEIGHT);
+        primaryStage.setTitle("Tic-Tak-Toe"); // Set the stage title
+        primaryStage.setScene(scene); // Place the scene in the stage
+        primaryStage.show(); // Display the stage
     }
 
     public static void handleMouseClick(FieldView.Cell cell, FieldView fieldView, Field field) {
-        field.setTokenInCells(cell.getX(), cell.getY(), fieldView, cell);
+        field.setTokenInCells(cell.getPosition(), fieldView, cell);
     }
 }

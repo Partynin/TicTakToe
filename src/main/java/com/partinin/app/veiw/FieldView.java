@@ -2,6 +2,7 @@ package com.partinin.app.veiw;
 
 import com.partinin.app.controller.Game;
 import com.partinin.app.model.Field;
+import com.partinin.app.model.Point;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
@@ -25,7 +26,8 @@ public class FieldView extends BorderPane {
         GridPane paneGrid = new GridPane();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                paneGrid.add(cellsGrid[i][j] = new Cell(i, j), j, i);
+                Point newPosition = new Point(i, j);
+                paneGrid.add(cellsGrid[i][j] = new Cell(newPosition), j, i);
             }
         }
         this.setCenter(paneGrid);
@@ -41,17 +43,15 @@ public class FieldView extends BorderPane {
 
     public class Cell extends Pane {
         private char token = ' ';
-        private int x;
-        private int y;
+        private Point position;
 
-        public Cell(int x, int y) {
+        public Cell(Point position) {
             setStyle("-fx-border-color: black");
             this.setPrefSize(2000, 2000);
             this.setOnMouseClicked(e -> {
                 Game.handleMouseClick( this, FieldView.this, field);
             });
-            this.x = x;
-            this.y = y;
+            this.position = position;
         }
 
         public void setToken(char c) {
@@ -87,12 +87,8 @@ public class FieldView extends BorderPane {
             }
         }
 
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
+        public Point getPosition() {
+            return position;
         }
     }
 }

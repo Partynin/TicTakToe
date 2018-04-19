@@ -67,10 +67,10 @@ public class Field {
     }
 
     /** Puts token in the specified cell */
-    public void setTokenInCells(int x, int y, FieldView view, FieldView.Cell cell) {
+    public void setTokenInCells(Point position, FieldView view, FieldView.Cell cell) {
         // If cell is empty and game is not over
-        if (cells[x][y] == ' ' && whoseTurn != ' ') {
-            cells[x][y] = whoseTurn; // Set token in the cell
+        if (cells[position.getX()][position.getY()] == ' ' && whoseTurn != ' ') {
+            cells[position.getX()][position.getY()] = whoseTurn; // Set token in the cell
 
             // Check game status
             if (isWon(whoseTurn)) {
