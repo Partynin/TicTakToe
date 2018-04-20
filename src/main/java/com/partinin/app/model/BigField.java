@@ -8,12 +8,12 @@ public class BigField {
     private Field[][] bigField = new Field[3][3];
 
     public BigField() {
-        fillBigCells();
+        generateSmallFields();
     }
 
-    private void fillBigCells() {
+    private void generateSmallFields() {
         for (int i = 0; i < COUNT_OF_CELL; i++) { // Vertical cells
-            for (int j = 0; j < COUNT_OF_CELL; i++) { // Horizontal cells
+            for (int j = 0; j < COUNT_OF_CELL; j++) { // Horizontal cells
                 bigField[i][j] = new Field();
             }
         }

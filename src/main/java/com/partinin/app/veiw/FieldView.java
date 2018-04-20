@@ -35,6 +35,7 @@ public class FieldView extends BorderPane {
         hBoxForLabel.getChildren().add(lblStatus);
         hBoxForLabel.setAlignment(Pos.CENTER);
         this.setBottom(hBoxForLabel);
+        this.setStyle("-fx-border-color: black");
     }
 
     public void setLblStatus(String text) {
@@ -59,9 +60,9 @@ public class FieldView extends BorderPane {
 
             if (token == 'X') {
                 Line line1 = new Line(10, 10,
-                        this.getWidth() - 10, this.getHeight() -10);
+                        this.getWidth() - 10, this.getHeight() - 10);
                 line1.endXProperty().bind(this.widthProperty().subtract(10));
-                line1.endXProperty().bind(this.heightProperty().subtract(10));
+                line1.endYProperty().bind(this.heightProperty().subtract(10));
                 Line line2 = new Line(10, this.getHeight() - 10,
                         this.getWidth() - 10, 10);
                 line2.startYProperty().bind(this.heightProperty().subtract(10));
