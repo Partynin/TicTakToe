@@ -18,6 +18,11 @@ public class FieldView extends BorderPane {
     private Label lblStatus = new Label("X's turn to play");
     private Field field;
     private Cell[][] cellsGrid = new Cell[3][3];
+    private boolean forbidChangeColor = true;
+
+    public Field getField() {
+        return field;
+    }
 
     public FieldView(Field field) {
         this.field = field;
@@ -34,12 +39,44 @@ public class FieldView extends BorderPane {
         HBox hBoxForLabel = new HBox(5);
         hBoxForLabel.getChildren().add(lblStatus);
         hBoxForLabel.setAlignment(Pos.CENTER);
+        hBoxForLabel.setStyle("-fx-border-color: black");
         this.setBottom(hBoxForLabel);
-        this.setStyle("-fx-border-color: black");
+        this.setStyle("-fx-background-color: lightgreen");
+    }
+
+    public void setWinnerOnSmallField() {
+        setForbidChangeColor(false);
+        Pane winnerPane = new Pane();
+        winnerPane.setStyle("-fx-background-color: palevioletred");
+        Ellipse ellipse = new Ellipse(winnerPane.getWidth() / 2, winnerPane.getHeight() / 2,
+                winnerPane.getWidth() / 2 - 10, winnerPane.getHeight() / 2 - 10);
+        ellipse.centerXProperty().bind(winnerPane.widthProperty().divide(2));
+        ellipse.centerYProperty().bind(winnerPane.heightProperty().divide(2));
+        ellipse.radiusXProperty().bind(winnerPane.widthProperty().divide(2).subtract(10));
+        ellipse.radiusYProperty().bind(winnerPane.heightProperty().divide(2).subtract(10));
+        ellipse.setStroke(Color.GREEN);
+        ellipse.setStrokeWidth(8);
+        ellipse.setFill(null);
+        winnerPane.getChildren().add(ellipse);
+        this.setCenter(winnerPane);
+    }
+
+    public void changeBackgroundColorToRed() {
+        if (forbidChangeColor)
+            this.setStyle("-fx-background-color: palevioletred");
+    }
+
+    public void changeBackgroundColorToGreen() {
+        if (forbidChangeColor)
+            this.setStyle("-fx-background-color: lightgreen");
+    }
+
+    private void setForbidChangeColor(boolean forbidChangeColor) {
+        this.forbidChangeColor = forbidChangeColor;
     }
 
     public void setLblStatus(String text) {
-       lblStatus.setText(text);
+        lblStatus.setText(text);
     }
 
     public class Cell extends Pane {
@@ -50,7 +87,7 @@ public class FieldView extends BorderPane {
             setStyle("-fx-border-color: black");
             this.setPrefSize(2000, 2000);
             this.setOnMouseClicked(e -> {
-                Game.handleMouseClick( this, FieldView.this, field);
+                Game.handleMouseClick(this, FieldView.this, field);
             });
             this.position = position;
         }
@@ -68,12 +105,13 @@ public class FieldView extends BorderPane {
                 line2.startYProperty().bind(this.heightProperty().subtract(10));
                 line2.endXProperty().bind(this.widthProperty().subtract(10));
                 line1.setStroke(Color.BLUE);
+                line1.setStrokeWidth(4);
                 line2.setStroke(Color.BLUE);
+                line2.setStrokeWidth(4);
 
                 // Add the lines to the pane
                 this.getChildren().addAll(line1, line2);
-            }
-            else if (token == 'O') {
+            } else if (token == 'O') {
                 Ellipse ellipse = new Ellipse(this.getWidth() / 2, this.getHeight() / 2,
                         this.getWidth() / 2 - 10, this.getHeight() / 2 - 10);
                 ellipse.centerXProperty().bind(this.widthProperty().divide(2));
@@ -81,6 +119,7 @@ public class FieldView extends BorderPane {
                 ellipse.radiusXProperty().bind(this.widthProperty().divide(2).subtract(10));
                 ellipse.radiusYProperty().bind(this.heightProperty().divide(2).subtract(10));
                 ellipse.setStroke(Color.GREEN);
+                ellipse.setStrokeWidth(4);
                 ellipse.setFill(null);
 
                 // Add the ellipse to the pane

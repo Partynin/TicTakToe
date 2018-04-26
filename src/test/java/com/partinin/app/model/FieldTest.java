@@ -8,9 +8,5 @@ public class FieldTest {
 
     @Test
     public void isWon() {
-        Field field = new Field();
-        boolean actual;
-        actual = field.isWon('X');
-        assertFalse(actual);
     }
 }
