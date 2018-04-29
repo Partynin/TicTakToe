@@ -4,7 +4,7 @@ Thank you for choosing us!
 > As you may have discovered yourself, tic-tac-toe is terminally dull.
 > But the mathematicians play a more sophisticated version.
 
-![alt-text](https://mathwithbaddrawings.files.wordpress.com/2013/06/18-mid-game.jpg "our game")
+![alt-text](https://github.com/Partynin/TicTakToe/blob/master/src/image/board.png)
 
 ### Ruls:
 + Each turn, you mark one of the small squares.
@@ -13,3 +13,5 @@ Thank you for choosing us!
 + You don’t get to pick which of the nine boards to play on. That’s determined by your opponent’s previous move. Whichever square he picks, that’s the board you must play in next.
 
 [Description of the full rules of the game here](https://mathwithbaddrawings.com/2013/06/16/ultimate-tic-tac-toe/)
+
+[![Build Status](https://travis-ci.org/Partynin/TicTakToe.svg?branch=master)](https://travis-ci.org/Partynin/TicTakToe)
