@@ -32,7 +32,7 @@ public class Game extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        //BorderPane pane = new BorderPane();
+        BorderPane pane = new BorderPane();
         pane.setCenter(view);
 
         // Create a scene and place the pane in the stage
