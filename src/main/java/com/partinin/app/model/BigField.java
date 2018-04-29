@@ -7,36 +7,36 @@ package com.partinin.app.model;
 
 public class BigField {
     private static final int COUNT_OF_CELL = 3;
-    private Field[][] bigField = new Field[3][3];
+    private Field[][] bigFieldCells = new Field[3][3];
 
     public BigField() {
-        generateSmallFields();
+        generateCellsFromFields();
     }
 
-    private void generateSmallFields() {
+    private void generateCellsFromFields() {
         for (int i = 0; i < COUNT_OF_CELL; i++) { // Vertical cells
             for (int j = 0; j < COUNT_OF_CELL; j++) { // Horizontal cells
-                bigField[i][j] = new Field();
+                bigFieldCells[i][j] = new Field();
             }
         }
     }
 
     public Field getSmallField(Point position) {
-        return bigField[position.getX()][position.getY()];
+        return bigFieldCells[position.getX()][position.getY()];
     }
 
     void blockOtherFields(Point position) {
-        if (bigField[position.getX()][position.getY()].getWhoseWon() == ' ') {
+        if (bigFieldCells[position.getX()][position.getY()].getWhoseWon() == ' ') {
             for (int i = 0; i < COUNT_OF_CELL; i++) {
                 for (int j = 0; j < COUNT_OF_CELL; j++) {
-                    bigField[i][j].setBlocked(true);
+                    bigFieldCells[i][j].setBlocked(true);
                 }
             }
-            bigField[position.getX()][position.getY()].setBlocked(false);
+            bigFieldCells[position.getX()][position.getY()].setBlocked(false);
         } else {
             for (int i = 0; i < COUNT_OF_CELL; i++) {
                 for (int j = 0; j < COUNT_OF_CELL; j++) {
-                    bigField[i][j].setBlocked(false);
+                    bigFieldCells[i][j].setBlocked(false);
                 }
             }
         }
@@ -45,7 +45,7 @@ public class BigField {
     public void changeTurn() {
         for (int i = 0; i < COUNT_OF_CELL; i++) {
             for (int j = 0; j < COUNT_OF_CELL; j++) {
-                bigField[i][j].changeTurn();
+                bigFieldCells[i][j].changeTurn();
             }
         }
     }
@@ -60,31 +60,31 @@ public class BigField {
     private boolean isWon(char token) {
         // Horizon lines
         for (int i = 0; i < COUNT_OF_CELL; i++)
-            if (bigField[i][0].getWhoseWon() == token
-                    && bigField[i][1].getWhoseWon() == token
-                    && bigField[i][2].getWhoseWon() == token) {
+            if (bigFieldCells[i][0].getWhoseWon() == token
+                    && bigFieldCells[i][1].getWhoseWon() == token
+                    && bigFieldCells[i][2].getWhoseWon() == token) {
                 return true;
             }
 
         // Vertical lines
         for (int j = 0; j < COUNT_OF_CELL; j++)
-            if (bigField[0][j].getWhoseWon() == token
-                    && bigField[1][j].getWhoseWon() == token
-                    && bigField[2][j].getWhoseWon() == token) {
+            if (bigFieldCells[0][j].getWhoseWon() == token
+                    && bigFieldCells[1][j].getWhoseWon() == token
+                    && bigFieldCells[2][j].getWhoseWon() == token) {
                 return true;
             }
 
         // Left-right diagonal
-        if (bigField[0][0].getWhoseWon() == token
-                && bigField[1][1].getWhoseWon() == token
-                && bigField[2][2].getWhoseWon() == token) {
+        if (bigFieldCells[0][0].getWhoseWon() == token
+                && bigFieldCells[1][1].getWhoseWon() == token
+                && bigFieldCells[2][2].getWhoseWon() == token) {
             return true;
         }
 
         // Right-left diagonal
-        if (bigField[0][2].getWhoseWon() == token
-                && bigField[1][1].getWhoseWon() == token
-                && bigField[2][0].getWhoseWon() == token) {
+        if (bigFieldCells[0][2].getWhoseWon() == token
+                && bigFieldCells[1][1].getWhoseWon() == token
+                && bigFieldCells[2][0].getWhoseWon() == token) {
             return true;
         }
 

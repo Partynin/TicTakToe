@@ -6,7 +6,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 /**
- * This class create a big field view and put small fields into it.
+ * This class create a big field view and put small field views into it.
  */
 
 public class BigFieldView extends BorderPane {
@@ -68,7 +68,7 @@ public class BigFieldView extends BorderPane {
         for (int i = 0; i < COUNT_OF_CELL; i++) {
             for (int j = 0; j < COUNT_OF_CELL; j++) {
                 if (bigCells[i][j].getField().getWhoseWon() != ' ')
-                    bigCells[i][j].setWinnerOnSmallField();
+                    bigCells[i][j].setWinnerOnSmallFieldView();
             }
         }
     }

@@ -19,6 +19,7 @@ public class FieldView extends BorderPane {
     private Field field;
     private Cell[][] cellsGrid = new Cell[3][3];
     private boolean forbidChangeColor = true;
+    private Pane winnerPane = new Pane();
 
     public Field getField() {
         return field;
@@ -44,21 +45,43 @@ public class FieldView extends BorderPane {
         this.setStyle("-fx-background-color: lightgreen");
     }
 
-    public void setWinnerOnSmallField() {
-        setForbidChangeColor(false);
-        Pane winnerPane = new Pane();
-        winnerPane.setStyle("-fx-background-color: palevioletred");
-        Ellipse ellipse = new Ellipse(winnerPane.getWidth() / 2, winnerPane.getHeight() / 2,
-                winnerPane.getWidth() / 2 - 10, winnerPane.getHeight() / 2 - 10);
-        ellipse.centerXProperty().bind(winnerPane.widthProperty().divide(2));
-        ellipse.centerYProperty().bind(winnerPane.heightProperty().divide(2));
-        ellipse.radiusXProperty().bind(winnerPane.widthProperty().divide(2).subtract(10));
-        ellipse.radiusYProperty().bind(winnerPane.heightProperty().divide(2).subtract(10));
-        ellipse.setStroke(Color.GREEN);
-        ellipse.setStrokeWidth(8);
-        ellipse.setFill(null);
-        winnerPane.getChildren().add(ellipse);
-        this.setCenter(winnerPane);
+    public void setWinnerOnSmallFieldView() {
+        if (field.getWhoseWon() == 'O') {
+            setForbidChangeColor(false);
+            winnerPane.setStyle("-fx-background-color: palevioletred");
+            winnerPane.setPrefSize(2000, 2000);
+            Ellipse ellipse = new Ellipse(winnerPane.getWidth() / 2, winnerPane.getHeight() / 2,
+                    winnerPane.getWidth() / 2 - 10, winnerPane.getHeight() / 2 - 10);
+            ellipse.centerXProperty().bind(winnerPane.widthProperty().divide(2));
+            ellipse.centerYProperty().bind(winnerPane.heightProperty().divide(2));
+            ellipse.radiusXProperty().bind(winnerPane.widthProperty().divide(2).subtract(10));
+            ellipse.radiusYProperty().bind(winnerPane.heightProperty().divide(2).subtract(10));
+            ellipse.setStroke(Color.GREEN);
+            ellipse.setStrokeWidth(8);
+            ellipse.setFill(null);
+            // Add the ellipse to the pane
+            winnerPane.getChildren().add(ellipse);
+            this.setCenter(winnerPane);
+        } else {
+            setForbidChangeColor(false);
+            winnerPane.setStyle("-fx-background-color: palevioletred");
+            winnerPane.setPrefSize(2000, 2000);
+            Line line1 = new Line(10, 10,
+                    winnerPane.getWidth() - 10, winnerPane.getHeight() - 10);
+            line1.endXProperty().bind(winnerPane.widthProperty().subtract(10));
+            line1.endYProperty().bind(winnerPane.heightProperty().subtract(10));
+            Line line2 = new Line(10, winnerPane.getHeight() - 10,
+                    winnerPane.getWidth() - 10, 10);
+            line2.startYProperty().bind(winnerPane.heightProperty().subtract(10));
+            line2.endXProperty().bind(winnerPane.widthProperty().subtract(10));
+            line1.setStroke(Color.BLUE);
+            line1.setStrokeWidth(8);
+            line2.setStroke(Color.BLUE);
+            line2.setStrokeWidth(8);
+            // Add the lines to the pane
+            winnerPane.getChildren().addAll(line1, line2);
+            this.setCenter(winnerPane);
+        }
     }
 
     public void changeBackgroundColorToRed() {

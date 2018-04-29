@@ -25,13 +25,13 @@ import javafx.stage.Stage;
  *  agree before the game to count a tied board for both X and O.*/
 
 public class Game extends Application {
-    public static final int PANE_WIDTH = 700;
-    public static final int PANE_HEIGHT = 700;
-    static BigField bigField = new BigField(); // Create a Field model
-    static BigFieldView view = new BigFieldView(bigField); // Create a pane view
+    private static final int PANE_WIDTH = 700;
+    private static final int PANE_HEIGHT = 700;
+    static private BigField bigField = new BigField(); // Create a Field model
+    static private BigFieldView view = new BigFieldView(bigField); // Create a pane view
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         BorderPane pane = new BorderPane();
         pane.setCenter(view);
 
