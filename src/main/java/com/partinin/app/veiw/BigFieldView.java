@@ -2,40 +2,45 @@ package com.partinin.app.veiw;
 
 import com.partinin.app.model.BigField;
 import com.partinin.app.model.Point;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 /**
  * This class create a big field view and put small field views into it.
  */
 
-public class BigFieldView extends BorderPane {
+public class BigFieldView extends GridPane {
     public static final int COUNT_OF_CELL = 3;
-    private FieldView[][] bigCells = new FieldView[COUNT_OF_CELL][COUNT_OF_CELL];
-    private GridPane gridPane = new GridPane();
+    private FieldView[][] bigCellsOfFieldViews;
+    private BigField bigField;
 
     public BigFieldView(BigField bigField) {
+        this.bigField = bigField;
+        bigCellsOfFieldViews = new FieldView[COUNT_OF_CELL][COUNT_OF_CELL];
+        fillBigFieldViewArray();
+    }
+
+    private void fillBigFieldViewArray() {
         for (int i = 0; i < COUNT_OF_CELL; i++) {
             for (int j = 0; j < COUNT_OF_CELL; j++) {
                 Point position = new Point(i, j);
                 FieldView fieldV = new FieldView(bigField.getSmallField(position));
-                bigCells[i][j] = fieldV;
+                fieldV.setPosition(position);
+                bigCellsOfFieldViews[i][j] = fieldV;
             }
         }
-        fillGridPane();
-        addGridPaneInBigFieldView();
-        gridPane.setHgap(5);
-        gridPane.setVgap(5);
-        gridPane.setStyle("-fx-background-color: black");
+        fillBigViewWithSmallFieldViews();
+        this.setHgap(5);
+        this.setVgap(5);
+        this.setStyle("-fx-background-color: black");
     }
 
     /**
      * Puts the small fields into the gird pane.
      */
-    private void fillGridPane() {
+    private void fillBigViewWithSmallFieldViews() {
         for (int i = 0; i < COUNT_OF_CELL; i++) {
             for (int j = 0; j < COUNT_OF_CELL; j++) {
-                gridPane.add(bigCells[i][j], j, i);
+                this.add(bigCellsOfFieldViews[i][j], j, i);
             }
         }
     }
@@ -44,32 +49,23 @@ public class BigFieldView extends BorderPane {
      * Changes the colors of locked fields as red, not locked as green.
      */
     public void changeColorFieldView(Point position) {
-        if (bigCells[position.getX()][position.getY()].getField().getWhoseWon() == ' ') {
+        if (bigCellsOfFieldViews[position.getX()][position.getY()].getField().getWhoseWon() == ' ') {
             for (int i = 0; i < COUNT_OF_CELL; i++) {
                 for (int j = 0; j < COUNT_OF_CELL; j++) {
-                    bigCells[i][j].changeBackgroundColorToRed();
+                    bigCellsOfFieldViews[i][j].changeBackgroundColorToRed();
                 }
             }
-            bigCells[position.getX()][position.getY()].changeBackgroundColorToGreen();
+            bigCellsOfFieldViews[position.getX()][position.getY()].changeBackgroundColorToGreen();
         } else {
             for (int i = 0; i < COUNT_OF_CELL; i++) {
                 for (int j = 0; j < COUNT_OF_CELL; j++) {
-                    bigCells[i][j].changeBackgroundColorToGreen();
+                    bigCellsOfFieldViews[i][j].changeBackgroundColorToGreen();
                 }
             }
         }
     }
 
-    private void addGridPaneInBigFieldView() {
-        this.setCenter(gridPane);
-    }
-
-    public void setWinner() {
-        for (int i = 0; i < COUNT_OF_CELL; i++) {
-            for (int j = 0; j < COUNT_OF_CELL; j++) {
-                if (bigCells[i][j].getField().getWhoseWon() != ' ')
-                    bigCells[i][j].setWinnerOnSmallFieldView();
-            }
-        }
+    public void setWinner(Point position) {
+        bigCellsOfFieldViews[position.getX()][position.getY()].setWinnerOnSmallFieldView();
     }
 }

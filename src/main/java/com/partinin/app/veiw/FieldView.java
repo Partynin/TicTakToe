@@ -14,42 +14,56 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 
 public class FieldView extends BorderPane {
-    // Create and initialize a status label
-    private Label lblStatus = new Label("X's turn to play");
+    private static final int SIDE_OF_FIELD = 3;
+    private Label lblStatus = new Label("X's turn to play"); // Create and initialize a status label
     private Field field;
-    private Cell[][] cellsGrid = new Cell[3][3];
+    private Cell[][] cellsGrid;
     private boolean forbidChangeColor = true;
     private Pane winnerPane = new Pane();
-
-    public Field getField() {
-        return field;
-    }
+    private GridPane paneGrid = new GridPane(); // Pane to hold cell
+    private Point position;
 
     public FieldView(Field field) {
         this.field = field;
-        // Fill paneGird with cells
-        // Pane to hold cell
-        GridPane paneGrid = new GridPane();
+        cellsGrid = new Cell[SIDE_OF_FIELD][SIDE_OF_FIELD];
+        fillPaneGirdWithCells();
+    }
+
+    private void fillPaneGirdWithCells() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 Point newPosition = new Point(i, j);
-                paneGrid.add(cellsGrid[i][j] = new Cell(newPosition), j, i);
+                paneGrid.add(cellsGrid[i][j] = new Cell(newPosition), j, i); // Fill paneGird with cells
             }
         }
+
         this.setCenter(paneGrid);
         HBox hBoxForLabel = new HBox(5);
-        hBoxForLabel.getChildren().add(lblStatus);
+        hBoxForLabel.getChildren().addAll(lblStatus);
         hBoxForLabel.setAlignment(Pos.CENTER);
         hBoxForLabel.setStyle("-fx-border-color: black");
         this.setBottom(hBoxForLabel);
         this.setStyle("-fx-background-color: lightgreen");
     }
 
+
+    public Field getField() {
+        return field;
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
+
     public void setWinnerOnSmallFieldView() {
         if (field.getWhoseWon() == 'O') {
             setForbidChangeColor(false);
             winnerPane.setStyle("-fx-background-color: palevioletred");
-            winnerPane.setPrefSize(2000, 2000);
             Ellipse ellipse = new Ellipse(winnerPane.getWidth() / 2, winnerPane.getHeight() / 2,
                     winnerPane.getWidth() / 2 - 10, winnerPane.getHeight() / 2 - 10);
             ellipse.centerXProperty().bind(winnerPane.widthProperty().divide(2));
@@ -61,11 +75,11 @@ public class FieldView extends BorderPane {
             ellipse.setFill(null);
             // Add the ellipse to the pane
             winnerPane.getChildren().add(ellipse);
+            winnerPane.setPrefSize(6000, 6000);
             this.setCenter(winnerPane);
         } else {
             setForbidChangeColor(false);
             winnerPane.setStyle("-fx-background-color: palevioletred");
-            winnerPane.setPrefSize(2000, 2000);
             Line line1 = new Line(10, 10,
                     winnerPane.getWidth() - 10, winnerPane.getHeight() - 10);
             line1.endXProperty().bind(winnerPane.widthProperty().subtract(10));
@@ -80,6 +94,7 @@ public class FieldView extends BorderPane {
             line2.setStrokeWidth(8);
             // Add the lines to the pane
             winnerPane.getChildren().addAll(line1, line2);
+            winnerPane.setPrefSize(6000, 6000);
             this.setCenter(winnerPane);
         }
     }

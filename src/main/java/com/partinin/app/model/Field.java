@@ -10,14 +10,15 @@ import com.partinin.app.veiw.FieldView;
  */
 
 public class Field {
+    private static final int SIDE_OF_FIELD = 3;
     // Indicate which player has a turn, initially it is the X player
     private char whoseTurn = 'X';
-    private char[][] cells = new char[3][3];
-    private static final int SIDE_OF_FIELD = 3;
-    private boolean blocked = false;
-    private char whoseWon = ' ';
+    private char whoseWon = ' '; // Determine who is the winner on this field
+    private boolean blocked = false; // Block the field for next turn, if it true the turn blocked
+    private char[][] cells;
 
     public Field() {
+        cells = new char[SIDE_OF_FIELD][SIDE_OF_FIELD];
         fillCells();
     }
 
@@ -36,63 +37,34 @@ public class Field {
      * Puts token in the specified cell
      */
     public void setTokenInCells(Point position, FieldView view, FieldView.Cell cell) {
-        // If cell is empty and game is not over
+        // If cell is empty and game is not over and the field not blocked
         if (cells[position.getX()][position.getY()] == ' ' && whoseTurn != ' ' && !blocked) {
             cells[position.getX()][position.getY()] = whoseTurn; // Set token in the cell
 
-            // Check game status
-            if (isWon(whoseTurn)) {
-                cell.setToken(whoseTurn);
-                view.setLblStatus(whoseTurn + " won! The game is over");
-                blockedField(whoseTurn);
-                whoseTurn = ' '; // Game is over
-            } else if (isFull()) {
-                view.setLblStatus("Draw! The game is over");
-                whoseTurn = ' '; // Game is over
-            } else {
-                // Set token in cell
-                cell.setToken(whoseTurn);
-                // Change the turn
-                changeAllTurn();
-                //whoseTurn = (whoseTurn == 'X') ? 'O' : 'X';
-                // Display whose turn
-                view.setLblStatus(whoseTurn + "'s turn");
-            }
-
+            checkGameStatus(view, cell);
             blockOtherFields(position);
             changeColorFieldView(position);
         }
     }
 
-    private void blockedField(char whoseWon) {
-        this.whoseWon = whoseWon;
-        BigFieldView bigFieldView = Game.getBigFieldView();
-        bigFieldView.setWinner();
-    }
-
-    public char getWhoseWon() {
-        return whoseWon;
-    }
-
-    /**
-     * Blocks other fields on BigField bord
-     */
-    private void blockOtherFields(Point position) {
-        BigField bigField = Game.getBigField();
-        bigField.blockOtherFields(position);
-    }
-
-    /**
-     * Changes color on big field view
-     */
-    private void changeColorFieldView(Point position) {
-        BigFieldView bigFieldView = Game.getBigFieldView();
-        bigFieldView.changeColorFieldView(position);
-    }
-
-    private void changeAllTurn() {
-       BigField bigField = Game.getBigField();
-       bigField.changeTurn();
+    private void checkGameStatus(FieldView view, FieldView.Cell cell) {
+        // Check game status
+        if (isWon(whoseTurn)) {
+            cell.setToken(whoseTurn);
+            view.setLblStatus(whoseTurn + " won in this field");
+            blockedFieldPutWider(whoseTurn, view.getPosition());
+            whoseTurn = ' '; // Game is over on this field
+        } else if (isFull()) {
+            view.setLblStatus("Draw! The game on this field over");
+            whoseTurn = ' '; // Game is over on this field
+        } else {
+            // Set token in cell
+            cell.setToken(whoseTurn);
+            // Change the turn
+            changeAllTurn();
+            // Display whose turn
+            view.setLblStatus(whoseTurn + "'s turn");
+        }
     }
 
     /**
@@ -132,6 +104,28 @@ public class Field {
         return false;
     }
 
+    private void blockedFieldPutWider(char whoseWon, Point position) {
+        this.whoseWon = whoseWon;
+        BigFieldView bigFieldView = Game.getBigFieldView();
+        bigFieldView.setWinner(position);
+    }
+
+    /**
+     * Blocks other fields on BigField bord
+     */
+    private void blockOtherFields(Point position) {
+        BigField bigField = Game.getBigField();
+        bigField.blockOtherFields(position);
+    }
+
+    /**
+     * Changes color on big field view
+     */
+    private void changeColorFieldView(Point position) {
+        BigFieldView bigFieldView = Game.getBigFieldView();
+        bigFieldView.changeColorFieldView(position);
+    }
+
     /**
      * Determines if the cells are all occupied
      */
@@ -151,10 +145,24 @@ public class Field {
         this.blocked = blocked;
     }
 
-    /** Changes turn token on 'X' or 'O' */
+    /**
+     * Changes turn token on 'X' or 'O'
+     */
     public void changeTurn() {
         if (whoseTurn == 'X')
             whoseTurn = 'O';
         else whoseTurn = 'X';
     }
+
+
+    public char getWhoseWon() {
+        return whoseWon;
+    }
+
+    private void changeAllTurn() {
+        BigField bigField = Game.getBigField();
+        bigField.changeTurn();
+    }
+
+
 }

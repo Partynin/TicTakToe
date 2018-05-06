@@ -9,7 +9,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-/** 1. Each turn, you mark one of the small squares.
+/** The Game class represent controller for the game.
+ *
+ *  The game rules:
+ *  1. Each turn, you mark one of the small squares.
  *  2. When you get three in a row on a small board, you’ve won that board.
  *  3. To win the game, you need to win three small boards in a row.
  *
@@ -22,24 +25,31 @@ import javafx.stage.Stage;
  *
  *  What if one of the small boards results in a tie? I recommend that the board
  *  counts for neither X nor O. But, if you feel like a crazy variant, you could
- *  agree before the game to count a tied board for both X and O.*/
+ *  agree before the game to count a tied board for both X and O.
+ *  */
 
 public class Game extends Application {
     private static final int PANE_WIDTH = 700;
     private static final int PANE_HEIGHT = 700;
-    static private BigField bigField = new BigField(); // Create a Field model
-    static private BigFieldView view = new BigFieldView(bigField); // Create a pane view
+    static private BigField bigField;
+    static private BigFieldView view;
 
     @Override
     public void start(Stage primaryStage) {
-        BorderPane pane = new BorderPane();
-        pane.setCenter(view);
-
         // Create a scene and place the pane in the stage
-        Scene scene = new Scene(pane, PANE_WIDTH, PANE_HEIGHT);
+        Scene scene = new Scene(getPane(), PANE_WIDTH, PANE_HEIGHT);
         primaryStage.setTitle("Tic-Tak-Toe"); // Set the stage title
         primaryStage.setScene(scene); // Place the scene in the stage
         primaryStage.show(); // Display the stage
+    }
+
+    private BorderPane getPane() {
+        bigField = new BigField(); // Create a Field model
+        view = new BigFieldView(bigField); // Create a pane view
+        BorderPane pane = new BorderPane();
+        pane.setCenter(view);
+
+        return pane;
     }
 
     public static void handleMouseClick(FieldView.Cell cell, FieldView fieldView, Field field) {
