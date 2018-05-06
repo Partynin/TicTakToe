@@ -37,14 +37,17 @@ public class Game extends Application {
     private static BigFieldView view;
 
     @Override
-    public final void start(Stage primaryStage) {
-        // Create a scene and place the pane in the stage
+    public final void start(final Stage primaryStage) {
+        // Create a scene and place the pane in the stage.
         Scene scene = new Scene(getPane(), PANE_WIDTH, PANE_HEIGHT);
-        primaryStage.setTitle("Tic-Tak-Toe"); // Set the stage title
-        primaryStage.setScene(scene); // Place the scene in the stage
-        primaryStage.show(); // Display the stage
+        primaryStage.setTitle("Tic-Tak-Toe"); // Set the stage title.
+        primaryStage.setScene(scene); // Place the scene in the stage.
+        primaryStage.show(); // Display the stage.
     }
 
+    /**
+     * Gets pane for scene.
+     */
     private BorderPane getPane() {
         bigField = new BigField(); // Create a Field model
         view = new BigFieldView(bigField); // Create a pane view
@@ -54,16 +57,25 @@ public class Game extends Application {
         return pane;
     }
 
-    public static void handleMouseClick(FieldView.Cell cell,
-                                        FieldView fieldView, Field field) {
+    /**
+     * Handles mouse invents.
+     */
+    public static void handleMouseClick(final FieldView.Cell cell,
+                                        final FieldView fieldView, final Field field) {
         field.setTokenInCells(cell.getPosition(), fieldView, cell);
         bigField.checkWinner();
     }
 
+    /**
+     * Returns the BigField instance.
+     */
     public static BigField getBigField() {
         return bigField;
     }
 
+    /**
+     * Returns the BigFieldView instance.
+     */
     public static BigFieldView getBigFieldView() {
         return view;
     }

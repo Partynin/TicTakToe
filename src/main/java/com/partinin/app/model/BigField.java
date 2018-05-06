@@ -1,8 +1,8 @@
 package com.partinin.app.model;
 
 /**
- * The BigField class is the main class of the programme, in which it contains multiple
- * instances of the Field class.
+ * The BigField class is the main class of the programme, in which it contains
+ * multiple instances of the Field class.
  */
 
 public class BigField {
