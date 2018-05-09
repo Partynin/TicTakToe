@@ -1,6 +1,7 @@
 package com.partinin.app.veiw;
 
 import com.partinin.app.controller.Game;
+import com.partinin.app.model.ConstantsTicTakToe;
 import com.partinin.app.model.Field;
 import com.partinin.app.model.Point;
 import javafx.geometry.Pos;
@@ -13,8 +14,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 
-public class FieldView extends BorderPane {
-    private static final int SIDE_OF_FIELD = 3;
+public class FieldView extends BorderPane implements ConstantsTicTakToe {
+
     private Label lblStatus = new Label("X's turn to play"); // Create and initialize a status label
     private Field field;
     private Cell[][] cellsGrid;
@@ -25,7 +26,7 @@ public class FieldView extends BorderPane {
 
     public FieldView(Field field) {
         this.field = field;
-        cellsGrid = new Cell[SIDE_OF_FIELD][SIDE_OF_FIELD];
+        cellsGrid = new Cell[COUNT_OF_CELL][COUNT_OF_CELL];
         fillPaneGirdWithCells();
     }
 

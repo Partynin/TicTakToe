@@ -9,8 +9,8 @@ import com.partinin.app.veiw.FieldView;
  * This class represent a small field of the game
  */
 
-public class Field {
-    private static final int SIDE_OF_FIELD = 3;
+public class Field implements ConstantsTicTakToe {
+
     // Indicate which player has a turn, initially it is the X player
     private char whoseTurn = 'X';
     private char whoseWon = ' '; // Determine who is the winner on this field
@@ -18,7 +18,7 @@ public class Field {
     private char[][] cells;
 
     public Field() {
-        cells = new char[SIDE_OF_FIELD][SIDE_OF_FIELD];
+        cells = new char[COUNT_OF_CELL][COUNT_OF_CELL];
         fillCells();
     }
 
@@ -26,8 +26,8 @@ public class Field {
      * Initials fill the array cells with empty vales
      */
     private void fillCells() {
-        for (int i = 0; i < SIDE_OF_FIELD; i++) {
-            for (int j = 0; j < SIDE_OF_FIELD; j++) {
+        for (int i = 0; i < COUNT_OF_CELL; i++) {
+            for (int j = 0; j < COUNT_OF_CELL; j++) {
                 cells[i][j] = ' ';
             }
         }
@@ -72,7 +72,7 @@ public class Field {
      */
     private boolean isWon(char token) {
         // Horizon lines
-        for (int i = 0; i < SIDE_OF_FIELD; i++)
+        for (int i = 0; i < COUNT_OF_CELL; i++)
             if (cells[i][0] == token
                     && cells[i][1] == token
                     && cells[i][2] == token) {
@@ -80,7 +80,7 @@ public class Field {
             }
 
         // Vertical lines
-        for (int j = 0; j < SIDE_OF_FIELD; j++)
+        for (int j = 0; j < COUNT_OF_CELL; j++)
             if (cells[0][j] == token
                     && cells[1][j] == token
                     && cells[2][j] == token) {
@@ -130,8 +130,8 @@ public class Field {
      * Determines if the cells are all occupied
      */
     private boolean isFull() {
-        for (int i = 0; i < SIDE_OF_FIELD; i++)
-            for (int j = 0; j < SIDE_OF_FIELD; j++)
+        for (int i = 0; i < COUNT_OF_CELL; i++)
+            for (int j = 0; j < COUNT_OF_CELL; j++)
                 if (cells[i][j] == ' ')
                     return false;
 

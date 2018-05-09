@@ -31,6 +31,7 @@ import javafx.stage.Stage;
  */
 
 public class Game extends Application {
+
     private static final int PANE_WIDTH = 700;
     private static final int PANE_HEIGHT = 700;
     private static BigField bigField;

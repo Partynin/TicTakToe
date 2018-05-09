@@ -5,8 +5,8 @@ package com.partinin.app.model;
  * multiple instances of the Field class.
  */
 
-public class BigField {
-    private static final int COUNT_OF_CELL = 3;
+public class BigField implements ConstantsTicTakToe {
+
     private Field[][] bigFieldCells;
 
     public BigField() {

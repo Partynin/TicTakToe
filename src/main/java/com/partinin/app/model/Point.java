@@ -3,6 +3,7 @@ package com.partinin.app.model;
 /** Point class contains the coordinates of the cell on the field. */
 
 public class Point {
+
     private int x;
     private int y;
 
