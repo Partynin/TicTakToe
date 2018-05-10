@@ -1,4 +1,4 @@
-package com.partinin.app.veiw;
+package com.partinin.app.view;
 
 import com.partinin.app.controller.Game;
 import com.partinin.app.model.ConstantsTicTakToe;

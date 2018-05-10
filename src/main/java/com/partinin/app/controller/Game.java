@@ -2,8 +2,8 @@ package com.partinin.app.controller;
 
 import com.partinin.app.model.BigField;
 import com.partinin.app.model.Field;
-import com.partinin.app.veiw.BigFieldView;
-import com.partinin.app.veiw.FieldView;
+import com.partinin.app.view.BigFieldView;
+import com.partinin.app.view.FieldView;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -47,7 +47,7 @@ public class Game extends Application {
     }
 
     /**
-     * Creates pane for scene.
+     * Creats pane for scene.
      */
     private BorderPane getPane() {
         bigField = new BigField(); // Create a Field model

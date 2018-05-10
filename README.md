@@ -2,7 +2,7 @@ Thank you for choosing us!
 <h1 align="center">Ultimate Tic-Tac-Toe</h1>
 
 > As you may have discovered yourself, tic-tac-toe is terminally dull.
-> But the mathematicians play a more sophisticated version.
+> But the a more sophisticated and interesting version.
 
 ![alt-text](https://github.com/Partynin/TicTakToe/blob/master/src/image/board.png)
 

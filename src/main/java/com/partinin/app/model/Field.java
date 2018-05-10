@@ -2,8 +2,8 @@ package com.partinin.app.model;
 
 
 import com.partinin.app.controller.Game;
-import com.partinin.app.veiw.BigFieldView;
-import com.partinin.app.veiw.FieldView;
+import com.partinin.app.view.BigFieldView;
+import com.partinin.app.view.FieldView;
 
 /**
  * This class represent a small field of the game.
