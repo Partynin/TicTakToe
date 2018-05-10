@@ -13,6 +13,7 @@ public class BigFieldView extends GridPane implements ConstantsTicTakToe {
 
     private FieldView[][] bigCellsOfFieldViews;
     private BigField bigField;
+    private char nextTurn = 'O';
 
     public BigFieldView(BigField bigField) {
         this.bigField = bigField;
@@ -64,6 +65,39 @@ public class BigFieldView extends GridPane implements ConstantsTicTakToe {
                 }
             }
         }
+    }
+
+    public void changeWhoseTurn(Point position, char whoseTurn) {
+        if (whoseTurn == ' ') {  // If game on small field ends
+            for (int i = 0; i < COUNT_OF_CELL; i++) {
+                for (int j = 0; j < COUNT_OF_CELL; j++) {
+                    if (bigCellsOfFieldViews[i][j].getField().getWhoseWon() == ' ') { // Check if game on small field ends not change text field on the field
+                        bigCellsOfFieldViews[i][j].setLblStatus(nextTurn + "'s turn");
+                    }
+                }
+            }
+        } else {
+            if (bigCellsOfFieldViews[position.getX()][position.getY()].getField().getWhoseWon() == ' ') {
+                bigCellsOfFieldViews[position.getX()][position.getY()].setLblStatus(whoseTurn + "'s turn");
+                changeNextTurnToken();
+                System.out.println("xxx");
+            } else {
+                System.out.println("new");
+                for (int i = 0; i < COUNT_OF_CELL; i++) {
+                    for (int j = 0; j < COUNT_OF_CELL; j++) {
+                        if (bigCellsOfFieldViews[i][j].getField().getWhoseWon() == ' ') {
+                            bigCellsOfFieldViews[i][j].setLblStatus(whoseTurn + "'s turn");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void changeNextTurnToken() {
+        if (nextTurn == 'O')
+            nextTurn = 'X';
+        else nextTurn = 'O';
     }
 
     public void setWinner(Point position) {

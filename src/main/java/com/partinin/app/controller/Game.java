@@ -47,7 +47,7 @@ public class Game extends Application {
     }
 
     /**
-     * Gets pane for scene.
+     * Creates pane for scene.
      */
     private BorderPane getPane() {
         bigField = new BigField(); // Create a Field model
@@ -64,7 +64,7 @@ public class Game extends Application {
     public static void handleMouseClick(final FieldView.Cell cell,
                                         final FieldView fieldView, final Field field) {
         field.setTokenInCells(cell.getPosition(), fieldView, cell);
-        bigField.checkWinner();
+        bigField.checkWinnerOnBigField();
     }
 
     /**
