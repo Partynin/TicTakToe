@@ -4,7 +4,7 @@ Thank you for choosing us!
 > As you may have discovered yourself, tic-tac-toe is terminally dull.
 > But the a more sophisticated and interesting version.
 
-![alt-text](https://github.com/Partynin/TicTakToe/blob/master/src/image/board.png)
+![alt-text](https://github.com/Partynin/TicTakToe/blob/master/image/board.png?raw=true)
 
 ### Ruls:
 + Each turn, you mark one of the small squares.
