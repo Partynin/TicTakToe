@@ -36,12 +36,12 @@ public class Field implements ConstantsTicTakToe {
     /**
      * Puts token in the specified cell.
      */
-    public void setTokenInCells(Point position, FieldView view, FieldView.Cell cell) {
+    public void setTokenInCells(Point position, FieldView view) {
         // If cell is empty and game is not over and the field not blocked.
-        if (cells[position.getX()][position.getY()] == ' ' && whoseTurn != ' ' && !blocked) {
+        if (cells[position.getX()][position.getY()] == ' ' && !blocked) {
             cells[position.getX()][position.getY()] = whoseTurn; // Set token in the cell
 
-            checkGameStatus(view, cell);
+            checkGameStatus(view, view.getCell(position));
             blockOtherFields(position);
             changeWhoseTurnTextFields(position);
             changeColorFieldView(position);
@@ -64,8 +64,6 @@ public class Field implements ConstantsTicTakToe {
             cell.setToken(whoseTurn);
             // Change the turn.
             changeAllTurn();
-            // Display whose turn.
-            //view.setLblStatus(whoseTurn + "'s turn");
         }
     }
 

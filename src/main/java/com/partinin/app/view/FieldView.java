@@ -118,6 +118,10 @@ public class FieldView extends BorderPane implements ConstantsTicTakToe {
         lblStatus.setText(text);
     }
 
+    public Cell getCell(Point position) {
+        return cellsGrid[position.getX()][position.getY()];
+    }
+
     public class Cell extends Pane {
         private char token = ' ';
         private Point position;
@@ -126,7 +130,7 @@ public class FieldView extends BorderPane implements ConstantsTicTakToe {
             setStyle("-fx-border-color: black");
             this.setPrefSize(2000, 2000);
             this.setOnMouseClicked(e -> {
-                Game.handleMouseClick(this, FieldView.this, field);
+                Game.handleMouseClick(position, FieldView.this);
             });
             this.position = position;
         }

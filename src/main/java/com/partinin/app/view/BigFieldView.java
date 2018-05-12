@@ -71,7 +71,8 @@ public class BigFieldView extends GridPane implements ConstantsTicTakToe {
         if (whoseTurn == ' ') {  // If game on small field ends
             for (int i = 0; i < COUNT_OF_CELL; i++) {
                 for (int j = 0; j < COUNT_OF_CELL; j++) {
-                    if (bigCellsOfFieldViews[i][j].getField().getWhoseWon() == ' ') { // Check if game on small field ends not change text field on the field
+                    // Check if game on small field ends not change text field on the field
+                    if (bigCellsOfFieldViews[i][j].getField().getWhoseWon() == ' ') {
                         bigCellsOfFieldViews[i][j].setLblStatus(nextTurn + "'s turn");
                     }
                 }
@@ -80,9 +81,7 @@ public class BigFieldView extends GridPane implements ConstantsTicTakToe {
             if (bigCellsOfFieldViews[position.getX()][position.getY()].getField().getWhoseWon() == ' ') {
                 bigCellsOfFieldViews[position.getX()][position.getY()].setLblStatus(whoseTurn + "'s turn");
                 changeNextTurnToken();
-                System.out.println("xxx");
             } else {
-                System.out.println("new");
                 for (int i = 0; i < COUNT_OF_CELL; i++) {
                     for (int j = 0; j < COUNT_OF_CELL; j++) {
                         if (bigCellsOfFieldViews[i][j].getField().getWhoseWon() == ' ') {

@@ -1,7 +1,7 @@
 package com.partinin.app.controller;
 
 import com.partinin.app.model.BigField;
-import com.partinin.app.model.Field;
+import com.partinin.app.model.Point;
 import com.partinin.app.view.BigFieldView;
 import com.partinin.app.view.FieldView;
 import javafx.application.Application;
@@ -47,7 +47,7 @@ public class Game extends Application {
     }
 
     /**
-     * Creats pane for scene.
+     * Creates a pane for the scene.
      */
     private BorderPane getPane() {
         bigField = new BigField(); // Create a Field model
@@ -61,9 +61,8 @@ public class Game extends Application {
     /**
      * Handles mouse invents.
      */
-    public static void handleMouseClick(final FieldView.Cell cell,
-                                        final FieldView fieldView, final Field field) {
-        field.setTokenInCells(cell.getPosition(), fieldView, cell);
+    public static void handleMouseClick(final Point position, final FieldView fieldView) {
+        fieldView.getField().setTokenInCells(position, fieldView);
         bigField.checkWinnerOnBigField();
     }
 
