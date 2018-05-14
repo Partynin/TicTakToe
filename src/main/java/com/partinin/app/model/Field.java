@@ -13,8 +13,10 @@ public class Field implements ConstantsTicTakToe {
 
     // Indicate which player has a turn, initially it is the X player.
     private char whoseTurn = 'X';
-    private char whoseWon = ' '; // Determine who is the winner on this field.
-    private boolean blocked = false; // Block the field for next turn, if it true the turn blocked.
+    // Determine who is the winner on this field.
+    private char whoseWon = ' ';
+    // Block the field for next turn, if it true the turn blocked.
+    private boolean blocked = false;
     private char[][] cells;
 
     public Field() {
@@ -39,7 +41,8 @@ public class Field implements ConstantsTicTakToe {
     public void setTokenInCells(Point position, FieldView view) {
         // If cell is empty and game is not over and the field not blocked.
         if (cells[position.getX()][position.getY()] == ' ' && !blocked) {
-            cells[position.getX()][position.getY()] = whoseTurn; // Set token in the cell
+            // Set token in the cell.
+            cells[position.getX()][position.getY()] = whoseTurn;
 
             checkGameStatus(view, view.getCell(position));
             blockOtherFields(position);
@@ -72,20 +75,22 @@ public class Field implements ConstantsTicTakToe {
      */
     private boolean isWon(char token) {
         // Horizon lines.
-        for (int i = 0; i < COUNT_OF_CELL; i++)
+        for (int i = 0; i < COUNT_OF_CELL; i++) {
             if (cells[i][0] == token
                     && cells[i][1] == token
                     && cells[i][2] == token) {
                 return true;
             }
+        }
 
         // Vertical lines.
-        for (int j = 0; j < COUNT_OF_CELL; j++)
+        for (int j = 0; j < COUNT_OF_CELL; j++) {
             if (cells[0][j] == token
                     && cells[1][j] == token
                     && cells[2][j] == token) {
                 return true;
             }
+        }
 
         // Left-right diagonal.
         if (cells[0][0] == token
@@ -104,8 +109,8 @@ public class Field implements ConstantsTicTakToe {
         return false;
     }
 
-    private void blockedFieldPutWinner(char whoseWon, Point position) {
-        this.whoseWon = whoseWon;
+    private void blockedFieldPutWinner(char whoseWonToken, Point position) {
+        whoseWon = whoseWonToken;
         BigFieldView bigFieldView = Game.getBigFieldView();
         bigFieldView.setWinner(position);
     }
@@ -135,10 +140,13 @@ public class Field implements ConstantsTicTakToe {
      * Determines if the cells are all occupied.
      */
     private boolean isFull() {
-        for (int i = 0; i < COUNT_OF_CELL; i++)
-            for (int j = 0; j < COUNT_OF_CELL; j++)
-                if (cells[i][j] == ' ')
+        for (int i = 0; i < COUNT_OF_CELL; i++) {
+            for (int j = 0; j < COUNT_OF_CELL; j++) {
+                if (cells[i][j] == ' ') {
                     return false;
+                }
+            }
+        }
 
         return true;
     }
@@ -146,17 +154,19 @@ public class Field implements ConstantsTicTakToe {
     /**
      * Block the field.
      */
-    public void setBlocked(boolean blocked) {
-        this.blocked = blocked;
+    public void setBlocked(boolean block) {
+        blocked = block;
     }
 
     /**
      * Changes turn token on 'X' or 'O'.
      */
     public void changeTurn() {
-        if (whoseTurn == 'X')
+        if (whoseTurn == 'X') {
             whoseTurn = 'O';
-        else whoseTurn = 'X';
+        } else {
+            whoseTurn = 'X';
+        }
     }
 
 

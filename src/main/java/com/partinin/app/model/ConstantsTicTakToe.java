@@ -1,5 +1,10 @@
 package com.partinin.app.model;
 
+/**
+ * The class for constants.
+ */
+
 public interface ConstantsTicTakToe {
-    public static int COUNT_OF_CELL = 3; // Number of cell in the field
+
+    int COUNT_OF_CELL = 3; // Number of cell in the field.
 }

@@ -14,8 +14,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 
+/**
+ * The class for imaging the field.
+ */
+
 public class FieldView extends BorderPane implements ConstantsTicTakToe {
 
+    private static final int INDENT_TOKEN_FROM_AGE_OF_FIELD = 10;
+    private static final int WIDTH_OF_TOKEN_IMAGE = 8;
+    private static final int PREFER_WIDTH_OF_FIELD_WITH_TOKEN_IMAGE = 6000;
+    private static final int PREFER_HEIGHT_OF_FIELD_WITH_TOKEN_IMAGE = 6000;
+    private static final int PREFER_WIDTH_OF_CELL = 2000;
+    private static final int PREFER_HEIGHT_OF_CELL = 2000;
+    private static final int WIDTH_OF_TOKEN_IMAGE_ON_CELL = 4;
     private Label lblStatus = new Label("X's turn to play"); // Create and initialize a status label
     private Field field;
     private Cell[][] cellsGrid;
@@ -24,22 +35,23 @@ public class FieldView extends BorderPane implements ConstantsTicTakToe {
     private GridPane paneGrid = new GridPane(); // Pane to hold cell
     private Point position;
 
-    public FieldView(Field field) {
-        this.field = field;
+    FieldView(Field fieldForThisFieldView) {
+        field = fieldForThisFieldView;
         cellsGrid = new Cell[COUNT_OF_CELL][COUNT_OF_CELL];
         fillPaneGirdWithCells();
     }
 
     private void fillPaneGirdWithCells() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < COUNT_OF_CELL; i++) {
+            for (int j = 0; j < COUNT_OF_CELL; j++) {
                 Point newPosition = new Point(i, j);
-                paneGrid.add(cellsGrid[i][j] = new Cell(newPosition), j, i); // Fill paneGird with cells
+                // Fill paneGird with cells.
+                paneGrid.add(cellsGrid[i][j] = new Cell(newPosition), j, i);
             }
         }
 
         this.setCenter(paneGrid);
-        HBox hBoxForLabel = new HBox(5);
+        HBox hBoxForLabel = new HBox();
         hBoxForLabel.getChildren().addAll(lblStatus);
         hBoxForLabel.setAlignment(Pos.CENTER);
         hBoxForLabel.setStyle("-fx-border-color: black");
@@ -56,8 +68,8 @@ public class FieldView extends BorderPane implements ConstantsTicTakToe {
         return position;
     }
 
-    public void setPosition(Point position) {
-        this.position = position;
+    public void setPosition(Point positionOfFieldViewOnBigView) {
+        this.position = positionOfFieldViewOnBigView;
     }
 
 
@@ -66,112 +78,136 @@ public class FieldView extends BorderPane implements ConstantsTicTakToe {
             setForbidChangeColor(false);
             winnerPane.setStyle("-fx-background-color: palevioletred");
             Ellipse ellipse = new Ellipse(winnerPane.getWidth() / 2, winnerPane.getHeight() / 2,
-                    winnerPane.getWidth() / 2 - 10, winnerPane.getHeight() / 2 - 10);
+                    winnerPane.getWidth() / 2 - INDENT_TOKEN_FROM_AGE_OF_FIELD,
+                    winnerPane.getHeight() / 2 - INDENT_TOKEN_FROM_AGE_OF_FIELD);
             ellipse.centerXProperty().bind(winnerPane.widthProperty().divide(2));
             ellipse.centerYProperty().bind(winnerPane.heightProperty().divide(2));
-            ellipse.radiusXProperty().bind(winnerPane.widthProperty().divide(2).subtract(10));
-            ellipse.radiusYProperty().bind(winnerPane.heightProperty().divide(2).subtract(10));
+            ellipse.radiusXProperty().bind(winnerPane.widthProperty().divide(2)
+                    .subtract(INDENT_TOKEN_FROM_AGE_OF_FIELD));
+            ellipse.radiusYProperty().bind(winnerPane.heightProperty().divide(2)
+                    .subtract(INDENT_TOKEN_FROM_AGE_OF_FIELD));
             ellipse.setStroke(Color.GREEN);
-            ellipse.setStrokeWidth(8);
+            ellipse.setStrokeWidth(WIDTH_OF_TOKEN_IMAGE);
             ellipse.setFill(null);
             // Add the ellipse to the pane
             winnerPane.getChildren().add(ellipse);
-            winnerPane.setPrefSize(6000, 6000);
+            winnerPane.setPrefSize(PREFER_WIDTH_OF_FIELD_WITH_TOKEN_IMAGE,
+                    PREFER_HEIGHT_OF_FIELD_WITH_TOKEN_IMAGE);
             this.setCenter(winnerPane);
         } else {
             setForbidChangeColor(false);
             winnerPane.setStyle("-fx-background-color: palevioletred");
-            Line line1 = new Line(10, 10,
-                    winnerPane.getWidth() - 10, winnerPane.getHeight() - 10);
-            line1.endXProperty().bind(winnerPane.widthProperty().subtract(10));
-            line1.endYProperty().bind(winnerPane.heightProperty().subtract(10));
-            Line line2 = new Line(10, winnerPane.getHeight() - 10,
-                    winnerPane.getWidth() - 10, 10);
-            line2.startYProperty().bind(winnerPane.heightProperty().subtract(10));
-            line2.endXProperty().bind(winnerPane.widthProperty().subtract(10));
+            Line line1 = new Line(INDENT_TOKEN_FROM_AGE_OF_FIELD, INDENT_TOKEN_FROM_AGE_OF_FIELD,
+                    winnerPane.getWidth() - INDENT_TOKEN_FROM_AGE_OF_FIELD, winnerPane.getHeight()
+                    - INDENT_TOKEN_FROM_AGE_OF_FIELD);
+            line1.endXProperty().bind(winnerPane.widthProperty()
+                    .subtract(INDENT_TOKEN_FROM_AGE_OF_FIELD));
+            line1.endYProperty().bind(winnerPane.heightProperty()
+                    .subtract(INDENT_TOKEN_FROM_AGE_OF_FIELD));
+            Line line2 = new Line(INDENT_TOKEN_FROM_AGE_OF_FIELD, winnerPane.getHeight()
+                    - INDENT_TOKEN_FROM_AGE_OF_FIELD,
+                    winnerPane.getWidth() - INDENT_TOKEN_FROM_AGE_OF_FIELD,
+                    INDENT_TOKEN_FROM_AGE_OF_FIELD);
+            line2.startYProperty().bind(winnerPane.heightProperty()
+                    .subtract(INDENT_TOKEN_FROM_AGE_OF_FIELD));
+            line2.endXProperty().bind(winnerPane.widthProperty()
+                    .subtract(INDENT_TOKEN_FROM_AGE_OF_FIELD));
             line1.setStroke(Color.BLUE);
-            line1.setStrokeWidth(8);
+            line1.setStrokeWidth(WIDTH_OF_TOKEN_IMAGE);
             line2.setStroke(Color.BLUE);
-            line2.setStrokeWidth(8);
+            line2.setStrokeWidth(WIDTH_OF_TOKEN_IMAGE);
             // Add the lines to the pane
             winnerPane.getChildren().addAll(line1, line2);
-            winnerPane.setPrefSize(6000, 6000);
+            winnerPane.setPrefSize(PREFER_WIDTH_OF_FIELD_WITH_TOKEN_IMAGE,
+                    PREFER_HEIGHT_OF_FIELD_WITH_TOKEN_IMAGE);
             this.setCenter(winnerPane);
         }
     }
 
     public void changeBackgroundColorToRed() {
-        if (forbidChangeColor)
+        if (forbidChangeColor) {
             this.setStyle("-fx-background-color: palevioletred");
+        }
     }
 
     public void changeBackgroundColorToGreen() {
-        if (forbidChangeColor)
+        if (forbidChangeColor) {
             this.setStyle("-fx-background-color: lightgreen");
+        }
     }
 
-    private void setForbidChangeColor(boolean forbidChangeColor) {
-        this.forbidChangeColor = forbidChangeColor;
+    private void setForbidChangeColor(boolean banChangeColor) {
+        forbidChangeColor = banChangeColor;
     }
 
     public void setLblStatus(String text) {
         lblStatus.setText(text);
     }
 
-    public Cell getCell(Point position) {
-        return cellsGrid[position.getX()][position.getY()];
+    public Cell getCell(Point pointPosition) {
+        return cellsGrid[pointPosition.getX()][pointPosition.getY()];
     }
 
-    public class Cell extends Pane {
-        private char token = ' ';
-        private Point position;
+    /**
+     * The class cell for imaging a cell on the field view.
+     */
 
-        public Cell(Point position) {
+    public class Cell extends Pane {
+
+        private char token = ' ';
+
+        public Cell(Point positionClick) {
             setStyle("-fx-border-color: black");
-            this.setPrefSize(2000, 2000);
+            this.setPrefSize(PREFER_WIDTH_OF_CELL, PREFER_HEIGHT_OF_CELL);
             this.setOnMouseClicked(e -> {
-                Game.handleMouseClick(position, FieldView.this);
+                Game.handleMouseClick(positionClick, FieldView.this);
             });
-            this.position = position;
         }
 
         public void setToken(char c) {
             token = c;
 
             if (token == 'X') {
-                Line line1 = new Line(10, 10,
-                        this.getWidth() - 10, this.getHeight() - 10);
-                line1.endXProperty().bind(this.widthProperty().subtract(10));
-                line1.endYProperty().bind(this.heightProperty().subtract(10));
-                Line line2 = new Line(10, this.getHeight() - 10,
-                        this.getWidth() - 10, 10);
-                line2.startYProperty().bind(this.heightProperty().subtract(10));
-                line2.endXProperty().bind(this.widthProperty().subtract(10));
+                Line line1 = new Line(INDENT_TOKEN_FROM_AGE_OF_FIELD,
+                        INDENT_TOKEN_FROM_AGE_OF_FIELD,
+                        this.getWidth() - INDENT_TOKEN_FROM_AGE_OF_FIELD, this.getHeight()
+                        - INDENT_TOKEN_FROM_AGE_OF_FIELD);
+                line1.endXProperty().bind(this.widthProperty()
+                        .subtract(INDENT_TOKEN_FROM_AGE_OF_FIELD));
+                line1.endYProperty().bind(this.heightProperty()
+                        .subtract(INDENT_TOKEN_FROM_AGE_OF_FIELD));
+                Line line2 = new Line(INDENT_TOKEN_FROM_AGE_OF_FIELD, this.getHeight()
+                        - INDENT_TOKEN_FROM_AGE_OF_FIELD,
+                        this.getWidth() - INDENT_TOKEN_FROM_AGE_OF_FIELD,
+                        INDENT_TOKEN_FROM_AGE_OF_FIELD);
+                line2.startYProperty().bind(this.heightProperty()
+                        .subtract(INDENT_TOKEN_FROM_AGE_OF_FIELD));
+                line2.endXProperty().bind(this.widthProperty()
+                        .subtract(INDENT_TOKEN_FROM_AGE_OF_FIELD));
                 line1.setStroke(Color.BLUE);
-                line1.setStrokeWidth(4);
+                line1.setStrokeWidth(WIDTH_OF_TOKEN_IMAGE_ON_CELL);
                 line2.setStroke(Color.BLUE);
-                line2.setStrokeWidth(4);
+                line2.setStrokeWidth(WIDTH_OF_TOKEN_IMAGE_ON_CELL);
 
                 // Add the lines to the pane
                 this.getChildren().addAll(line1, line2);
             } else if (token == 'O') {
                 Ellipse ellipse = new Ellipse(this.getWidth() / 2, this.getHeight() / 2,
-                        this.getWidth() / 2 - 10, this.getHeight() / 2 - 10);
+                        this.getWidth() / 2 - INDENT_TOKEN_FROM_AGE_OF_FIELD,
+                        this.getHeight() / 2 - INDENT_TOKEN_FROM_AGE_OF_FIELD);
                 ellipse.centerXProperty().bind(this.widthProperty().divide(2));
                 ellipse.centerYProperty().bind(this.heightProperty().divide(2));
-                ellipse.radiusXProperty().bind(this.widthProperty().divide(2).subtract(10));
-                ellipse.radiusYProperty().bind(this.heightProperty().divide(2).subtract(10));
+                ellipse.radiusXProperty().bind(this.widthProperty().divide(2)
+                        .subtract(INDENT_TOKEN_FROM_AGE_OF_FIELD));
+                ellipse.radiusYProperty().bind(this.heightProperty().divide(2)
+                        .subtract(INDENT_TOKEN_FROM_AGE_OF_FIELD));
                 ellipse.setStroke(Color.GREEN);
-                ellipse.setStrokeWidth(4);
+                ellipse.setStrokeWidth(WIDTH_OF_TOKEN_IMAGE_ON_CELL);
                 ellipse.setFill(null);
 
                 // Add the ellipse to the pane
                 this.getChildren().add(ellipse);
             }
-        }
-
-        public Point getPosition() {
-            return position;
         }
     }
 }

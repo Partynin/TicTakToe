@@ -61,7 +61,8 @@ public class Game extends Application {
     /**
      * Handles mouse invents.
      */
-    public static void handleMouseClick(final Point position, final FieldView fieldView) {
+    public static void handleMouseClick(final Point position,
+                                        final FieldView fieldView) {
         fieldView.getField().setTokenInCells(position, fieldView);
         bigField.checkWinnerOnBigField();
     }

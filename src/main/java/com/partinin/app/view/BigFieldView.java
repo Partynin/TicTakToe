@@ -11,12 +11,13 @@ import javafx.scene.layout.GridPane;
 
 public class BigFieldView extends GridPane implements ConstantsTicTakToe {
 
+    public static final int WIDTH_OF_DISTANCE_BETWEEN_FIELD_VIEWS = 5;
     private FieldView[][] bigCellsOfFieldViews;
-    private BigField bigField;
+    private BigField bigFieldForThisBigView;
     private char nextTurn = 'O';
 
     public BigFieldView(BigField bigField) {
-        this.bigField = bigField;
+        bigFieldForThisBigView = bigField;
         bigCellsOfFieldViews = new FieldView[COUNT_OF_CELL][COUNT_OF_CELL];
         fillBigFieldViewArray();
     }
@@ -25,14 +26,15 @@ public class BigFieldView extends GridPane implements ConstantsTicTakToe {
         for (int i = 0; i < COUNT_OF_CELL; i++) {
             for (int j = 0; j < COUNT_OF_CELL; j++) {
                 Point position = new Point(i, j);
-                FieldView fieldV = new FieldView(bigField.getSmallField(position));
+                FieldView fieldV = new FieldView(
+                        bigFieldForThisBigView.getSmallField(position));
                 fieldV.setPosition(position);
                 bigCellsOfFieldViews[i][j] = fieldV;
             }
         }
         fillBigViewWithSmallFieldViews();
-        this.setHgap(5);
-        this.setVgap(5);
+        this.setHgap(WIDTH_OF_DISTANCE_BETWEEN_FIELD_VIEWS);
+        this.setVgap(WIDTH_OF_DISTANCE_BETWEEN_FIELD_VIEWS);
         this.setStyle("-fx-background-color: black");
     }
 
@@ -51,13 +53,15 @@ public class BigFieldView extends GridPane implements ConstantsTicTakToe {
      * Changes the colors of locked fields as red, not locked as green.
      */
     public void changeColorFieldView(Point position) {
-        if (bigCellsOfFieldViews[position.getX()][position.getY()].getField().getWhoseWon() == ' ') {
+        if (bigCellsOfFieldViews[position.getX()][position.getY()]
+                .getField().getWhoseWon() == ' ') {
             for (int i = 0; i < COUNT_OF_CELL; i++) {
                 for (int j = 0; j < COUNT_OF_CELL; j++) {
                     bigCellsOfFieldViews[i][j].changeBackgroundColorToRed();
                 }
             }
-            bigCellsOfFieldViews[position.getX()][position.getY()].changeBackgroundColorToGreen();
+            bigCellsOfFieldViews[position.getX()][position.getY()]
+                    .changeBackgroundColorToGreen();
         } else {
             for (int i = 0; i < COUNT_OF_CELL; i++) {
                 for (int j = 0; j < COUNT_OF_CELL; j++) {
@@ -78,8 +82,10 @@ public class BigFieldView extends GridPane implements ConstantsTicTakToe {
                 }
             }
         } else {
-            if (bigCellsOfFieldViews[position.getX()][position.getY()].getField().getWhoseWon() == ' ') {
-                bigCellsOfFieldViews[position.getX()][position.getY()].setLblStatus(whoseTurn + "'s turn");
+            if (bigCellsOfFieldViews[position.getX()][position.getY()]
+                    .getField().getWhoseWon() == ' ') {
+                bigCellsOfFieldViews[position.getX()][position.getY()]
+                        .setLblStatus(whoseTurn + "'s turn");
                 changeNextTurnToken();
             } else {
                 for (int i = 0; i < COUNT_OF_CELL; i++) {
@@ -94,9 +100,11 @@ public class BigFieldView extends GridPane implements ConstantsTicTakToe {
     }
 
     private void changeNextTurnToken() {
-        if (nextTurn == 'O')
+        if (nextTurn == 'O') {
             nextTurn = 'X';
-        else nextTurn = 'O';
+        } else {
+            nextTurn = 'O';
+        }
     }
 
     public void setWinner(Point position) {
