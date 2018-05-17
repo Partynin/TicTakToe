@@ -1,11 +1,13 @@
 package com.partinin.app.model;
 
+import static com.partinin.app.model.ConstantsTicTakToe.COUNT_OF_CELL;
+
 /**
  * The BigField class is the main class of the programme, in which it contains
  * multiple instances of the Field class.
  */
 
-public class BigField implements ConstantsTicTakToe {
+public class BigField {
 
     private Field[][] bigFieldCells;
 

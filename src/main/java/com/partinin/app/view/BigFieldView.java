@@ -1,15 +1,16 @@
 package com.partinin.app.view;
 
 import com.partinin.app.model.BigField;
-import com.partinin.app.model.ConstantsTicTakToe;
 import com.partinin.app.model.Point;
 import javafx.scene.layout.GridPane;
+
+import static com.partinin.app.model.ConstantsTicTakToe.COUNT_OF_CELL;
 
 /**
  * This class create a big field view and put small field views into it.
  */
 
-public class BigFieldView extends GridPane implements ConstantsTicTakToe {
+public class BigFieldView extends GridPane {
 
     public static final int WIDTH_OF_DISTANCE_BETWEEN_FIELD_VIEWS = 5;
     private FieldView[][] bigCellsOfFieldViews;

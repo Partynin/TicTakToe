@@ -1,7 +1,6 @@
 package com.partinin.app.view;
 
 import com.partinin.app.controller.Game;
-import com.partinin.app.model.ConstantsTicTakToe;
 import com.partinin.app.model.Field;
 import com.partinin.app.model.Point;
 import javafx.geometry.Pos;
@@ -14,11 +13,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
 
+import static com.partinin.app.model.ConstantsTicTakToe.COUNT_OF_CELL;
+
 /**
  * The class for imaging the field.
  */
 
-public class FieldView extends BorderPane implements ConstantsTicTakToe {
+public class FieldView extends BorderPane {
 
     private static final int INDENT_TOKEN_FROM_AGE_OF_FIELD = 10;
     private static final int WIDTH_OF_TOKEN_IMAGE = 8;

@@ -5,11 +5,13 @@ import com.partinin.app.controller.Game;
 import com.partinin.app.view.BigFieldView;
 import com.partinin.app.view.FieldView;
 
+import static com.partinin.app.model.ConstantsTicTakToe.COUNT_OF_CELL;
+
 /**
  * This class represent a small field of the game.
  */
 
-public class Field implements ConstantsTicTakToe {
+public class Field {
 
     // Indicate which player has a turn, initially it is the X player.
     private char whoseTurn = 'X';
