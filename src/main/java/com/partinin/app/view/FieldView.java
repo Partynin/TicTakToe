@@ -69,14 +69,14 @@ public class FieldView extends BorderPane {
         return position;
     }
 
-    public void setPosition(Point positionOfFieldViewOnBigView) {
+    void setPosition(Point positionOfFieldViewOnBigView) {
         this.position = positionOfFieldViewOnBigView;
     }
 
 
-    public void setWinnerOnSmallFieldView() {
+    void setWinnerOnSmallFieldView() {
         if (field.getWhoseWon() == 'O') {
-            setForbidChangeColor(false);
+            setForbidChangeColor();
             winnerPane.setStyle("-fx-background-color: palevioletred");
             Ellipse ellipse = new Ellipse(winnerPane.getWidth() / 2, winnerPane.getHeight() / 2,
                     winnerPane.getWidth() / 2 - INDENT_TOKEN_FROM_AGE_OF_FIELD,
@@ -96,7 +96,7 @@ public class FieldView extends BorderPane {
                     PREFER_HEIGHT_OF_FIELD_WITH_TOKEN_IMAGE);
             this.setCenter(winnerPane);
         } else {
-            setForbidChangeColor(false);
+            setForbidChangeColor();
             winnerPane.setStyle("-fx-background-color: palevioletred");
             Line line1 = new Line(INDENT_TOKEN_FROM_AGE_OF_FIELD, INDENT_TOKEN_FROM_AGE_OF_FIELD,
                     winnerPane.getWidth() - INDENT_TOKEN_FROM_AGE_OF_FIELD, winnerPane.getHeight()
@@ -125,20 +125,20 @@ public class FieldView extends BorderPane {
         }
     }
 
-    public void changeBackgroundColorToRed() {
+    void changeBackgroundColorToRed() {
         if (forbidChangeColor) {
             this.setStyle("-fx-background-color: palevioletred");
         }
     }
 
-    public void changeBackgroundColorToGreen() {
+    void changeBackgroundColorToGreen() {
         if (forbidChangeColor) {
             this.setStyle("-fx-background-color: lightgreen");
         }
     }
 
-    private void setForbidChangeColor(boolean banChangeColor) {
-        forbidChangeColor = banChangeColor;
+    private void setForbidChangeColor() {
+        forbidChangeColor = false;
     }
 
     public void setLblStatus(String text) {
@@ -157,12 +157,10 @@ public class FieldView extends BorderPane {
 
         private char token = ' ';
 
-        public Cell(Point positionClick) {
+        Cell(Point positionClick) {
             setStyle("-fx-border-color: black");
             this.setPrefSize(PREFER_WIDTH_OF_CELL, PREFER_HEIGHT_OF_CELL);
-            this.setOnMouseClicked(e -> {
-                Game.handleMouseClick(positionClick, FieldView.this);
-            });
+            this.setOnMouseClicked(e -> Game.handleMouseClick(positionClick, FieldView.this));
         }
 
         public void setToken(char c) {

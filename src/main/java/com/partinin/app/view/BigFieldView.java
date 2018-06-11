@@ -12,7 +12,7 @@ import static com.partinin.app.model.ConstantsTicTakToe.COUNT_OF_CELL;
 
 public class BigFieldView extends GridPane {
 
-    public static final int WIDTH_OF_DISTANCE_BETWEEN_FIELD_VIEWS = 5;
+    private static final int WIDTH_OF_DISTANCE_BETWEEN_FIELD_VIEWS = 5;
     private FieldView[][] bigCellsOfFieldViews;
     private BigField bigFieldForThisBigView;
     private char nextTurn = 'O';

@@ -21,7 +21,7 @@ public class Field {
     private boolean blocked = false;
     private char[][] cells;
 
-    public Field() {
+    Field() {
         cells = new char[COUNT_OF_CELL][COUNT_OF_CELL];
         fillCells();
     }
@@ -102,13 +102,10 @@ public class Field {
         }
 
         // Right-left diagonal.
-        if (cells[0][2] == token
+        return cells[0][2] == token
                 && cells[1][1] == token
-                && cells[2][0] == token) {
-            return true;
-        }
+                && cells[2][0] == token;
 
-        return false;
     }
 
     private void blockedFieldPutWinner(char whoseWonToken, Point position) {
@@ -156,14 +153,14 @@ public class Field {
     /**
      * Block the field.
      */
-    public void setBlocked(boolean block) {
+    void setBlocked(boolean block) {
         blocked = block;
     }
 
     /**
      * Changes turn token on 'X' or 'O'.
      */
-    public void changeTurn() {
+    void changeTurn() {
         if (whoseTurn == 'X') {
             whoseTurn = 'O';
         } else {
